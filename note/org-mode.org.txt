@@ -399,3 +399,13 @@ https://emacs.stackexchange.com/a/5892
 (add-to-list 'org-emphasis-alist
              '("*" (:foreground "red")))
 #+end_src
+
+* Presentation
+https://geeksocket.in/posts/presentations-org-emacs/
+https://orgmode.org/worg/org-tutorials/non-beamer-presentations.html
+https://orgmode.org/worg/exporters/beamer/tutorial.html
+
+- org-present
+- org-tree-slide
+- org-reveal
+- epresent

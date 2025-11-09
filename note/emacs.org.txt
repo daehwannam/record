@@ -856,7 +856,7 @@ https://superuser.com/a/623453
   sudo dpkg-reconfigure keyboard-configuration
   service keyboard-setup restart
   #+end_src
-*** xmodemap
+*** xmodmap
 https://unix.stackexchange.com/questions/107566/how-to-swap-ctrl-and-capslock-using-xmodmap
 https://destinmoulton.com/blog/2020/remap-capslock-to-ctrl-with-xmodmap-automatically-on-startup/
 
@@ -875,7 +875,7 @@ https://destinmoulton.com/blog/2020/remap-capslock-to-ctrl-with-xmodmap-automati
   add Control = Control_L
   #+end_example
 
-- Running Xmodemap
+- Running Xmodmap
   #+begin_src sh
   xmodmap ~/.Xmodmap
   #+end_src

@@ -1,5 +1,8 @@
 
 * Material
+- GUIX or GUIX system https://www.reddit.com/r/GUIX/comments/1frcut8/guix_or_guix_system/
+
+** System Crafters
 https://systemcrafters.cc/craft-your-system-with-guix/
 - https://systemcrafters.cc/craft-your-system-with-guix/introduction
 - https://systemcrafters.cc/craft-your-system-with-guix/installing-the-package-manager/

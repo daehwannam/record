@@ -234,6 +234,22 @@ https://www.reddit.com/r/firefox/comments/ngchbi/comment/gyszirk/?utm_source=sha
 *** Automatic full screen
 https://addons.mozilla.org/en-US/firefox/addon/i-auto-fullscreen/
 
+** Change the width of Caret cursor
+https://support.mozilla.org/en-US/questions/1174665
+- Open "about:config"
+- Search "caret"
+- If "ui.caretWidth" does not exists, newly create it
+- Change the value of "ui.caretWidth"
+  - The value 1 is close the default
+
+** Disable resuming from crash
+- about:config
+- browser.sessionstore.resume_from_crash -> false
+- browser.sessionstore.max_resumed_crashes -> 0
+
+** Manually restoring previous session
+Menu (≡) -> History -> Restore previous session
+
 * EAF browser
 https://github.com/emacs-eaf/emacs-application-framework
 emacs-application-framework browser
@@ -414,3 +430,8 @@ https://discourse.atlas.engineer/t/global-history-tree-your-map-of-the-internet/
 #+begin_src sh
 rm -R  ~/.local/share/nyxt/history
 #+end_src
+
+* browsh
+https://www.brow.sh/
+
+Browsh is a fully-modern text-based browser.

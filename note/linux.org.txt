@@ -546,6 +546,12 @@ https://stackoverflow.com/a/67185532
   # or firefox.desktop or nyxt.desktop
   #+end_src
 - or you can directly change "~/.config/mimeapps.list"
+
+*** Finding .desktop files
+#+begin_src sh
+find /usr/share/applications /usr/local/share/applications ~/.local/share/applications -type f -name "*{SOME_NAME}*.desktop"
+#+end_src
+
 ** pskill
 https://stackoverflow.com/a/27820938
 #+begin_src sh

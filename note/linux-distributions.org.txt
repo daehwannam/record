@@ -7,6 +7,10 @@ Arch Linux uses a rolling release model, meaning there are no â€œmajor releasesâ
 A Linux rolling release distribution is continuously updated in all areas of the operating system, including the Linux kernel, the desktop environment, all utilities and all applications. Getting the latest development, hardware support and new features much sooner with a rolling release.
 
 * OpenSUSE
+** Installing apt
+https://forums.opensuse.org/t/whats-the-process-of-installing-apt-on-opensuse/174788/2
+
+Distrobox can be used to install apt files in containers.
 
 * Debian
 

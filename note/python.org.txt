@@ -4,11 +4,13 @@
 #+begin_src sh
 python -c 'import torch; print(torch.__version__)'
 #+end_src
+
 ** run string input with echo
 #+begin_src sh
 echo -e "for i in range(3):\n    print(i)" | python
 echo -e "import nltk\nnltk.download('averaged_perceptron_tagger')\nnltk.download('wordnet')" | python
 #+end_src
+
 ** python run file as module (-m)
 #+begin_src sh
 python -m pack1.pack2.module  # pack1/pack2/module.py is the module's path
@@ -16,12 +18,43 @@ python -m pack1.pack2.module  # pack1/pack2/module.py is the module's path
 
 this code can execute the block of __main__ in "module.py"
 
+** PYTHONPATH
+https://stackoverflow.com/questions/5771376/how-to-import-multiple-locations-to-pythonpath-bash
+
+Bash command:
+#+begin_src sh
+PYTHONPATH=path/to/dir1:path/to/dir2:${PYTHONPATH} python path/to/code.py
+#+end_src
+
+Content of path/to/code.py:
+#+begin_src python
+import sys
+print(sys.path)
+#+end_src
+
+Expected output:
+#+begin_example
+['/the/current/path', '/full/path/to/dir1', '/full/path/to/dir2', ...]
+#+end_example
+
+When a module is imported, python first try to find the module in
+'/the/current/path', then in '/full/path/to/dir1' and '/full/path/to/dir2'.
+
+The current path is always added to "sys.path" and it has the highest priority.
+The path '/full/path/to/dir1' has a higher priority than '/full/path/to/dir2'.
+
+** Empty string in sys.path when python is exected without a file path
+https://stackoverflow.com/a/49559060
+
+The empty string means the current path, in which python command is called.
+
 * Python virtualenv
 ** make a virtualenv
 #+begin_src sh
 python -m venv .venv
 #+end_src
 where ".venv" is a directory name
+
 ** switch to a virtualenv
 #+begin_src sh
 source .venv/bin/activate
@@ -33,6 +66,7 @@ which python
 #+end_src
 
 such as "/home/<user>/some-dir//.venv/bin/python".
+
 ** deactivate
 #+begin_src sh
 deactivate
@@ -308,6 +342,127 @@ def func(tensor: 'Tensor'):
 https://stackoverflow.com/a/17705456
 
 Use ~functools.update_wrapper~.
+
+** dataclass
+*** immutable types with frozen option
+https://stackoverflow.com/a/58992808
+#+begin_src python
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Immutable:
+    a: type
+    b: type
+
+obj = Immutable('A', 10)
+#+end_src
+
+** Prevening "During handling of the above exception, another exception occurred"
+https://stackoverflow.com/a/52725410
+
+Use "raise Exception(...) from None"
+
+#+begin_src python
+try:
+    dic = dict(a=10, b=20)
+    print(dic['c'])
+except KeyError:
+    raise KeyError('Some error occurred') from None
+#+end_src
+
+** pickle
+*** Example
+**** module.py
+#+begin_src python
+class Person:
+    num_persons = 0
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        self.__class__.num_persons += 1
+
+    def __repr__(self):
+        return f'Person({repr(self.name)}, {repr(self.age)})'
+#+end_src
+
+Note:
+If the statement "self.__class__.num_persons += 1" is replaced as "self.num_persons += 1",
+"Person.num_persons" is not updated and it remains as 0, and
+"self.num_persons" of an object of Person is always 1.
+
+**** save.py
+#+begin_src python
+import pickle
+from module import Person
+
+persons = [Person('John', 28), Person('Mary', 30)]
+
+print(Person.num_persons)       # 2
+
+serialized = pickle.dumps(persons)
+with open('serialized.pickle', 'wb') as f:
+    f.write(serialized)
+#+end_src
+
+**** load.py
+#+begin_src python
+import pickle
+from module import Person
+
+with open('serialized.pickle', 'rb') as f:
+    serialized = f.read()
+
+deserialized = pickle.loads(serialized)
+
+print(deserialized)             # [Person('John', 28), Person('Mary', 30)]
+print(deserialized[0].num_persons)  # 0
+print(Person.num_persons)           # 0
+print(deserialized[0].__class__ is Person)  # True
+#+end_src
+
+** Closure
+*** Pitfall of closure
+https://stackoverflow.com/questions/54288926/python-loops-and-closures
+
+Problem.
+
+#+begin_src python :results output drawer
+fn_list = []
+for num in [0, 1, 2]:
+    fn_list.append(lambda: num)
+
+for fn in fn_list:
+    print(fn())
+#+end_src
+
+#+RESULTS:
+:results:
+2
+2
+2
+:end:
+
+Solution ( https://stackoverflow.com/a/54289183 ).
+#+begin_src python :results output drawer
+fn_list = []
+for num in [0, 1, 2]:
+    fn_list.append(lambda num=num: num)
+
+for fn in fn_list:
+    print(fn())
+#+end_src
+
+#+RESULTS:
+:results:
+0
+1
+2
+:end:
+
+** Mangling with double underscore
+https://stackoverflow.com/questions/13498151/python-double-underscore-mangling
+
 
 * Hy language
 ** emacs hy-mode

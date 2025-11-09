@@ -76,6 +76,10 @@ https://forums.linuxmint.com/viewtopic.php?t=374026#top
 - Disabling QuickPhrase:
   "Trigger Key for QuickPhrase" -> "None"
   (The default value is "Semicolon")
+**** Config file location
+#+begin_example
+~/.config/fcitx/config
+#+end_example
 
 * Power management
 ** optimize linux laptop battery life with 'tlp'
@@ -449,6 +453,11 @@ https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex
 - Menu -> "Settings" -> "Configure Okular" -> "Editor" -> "Emacs client"
 - Menu -> "Tools" -> "Browse"
 - emacs server or daemon should be running
+*** set okular as the default pdf-reader for xdg-open
+#+begin_src sh
+xdg-mime default okularApplication_pdf.desktop application/pdf
+#+end_src
+
 ** evince
 pdf viewer
 *** install
@@ -927,3 +936,50 @@ clamscan --version
 #+begin_src sh
 sudo apt install clamtk -y
 #+end_src
+
+* Timer
+** vikdevelop timer
+https://flathub.org/en/apps/com.github.vikdevelop.timer
+https://github.com/vikdevelop/timer.git
+
+
+*** install
+#+begin_src sh
+flatpak install flathub com.github.vikdevelop.timer
+#+end_src
+
+*** run
+#+begin_src sh
+flatpak run com.github.vikdevelop.timer
+#+end_src
+
+** mpris-timer
+https://flathub.org/en/apps/io.github.efogdev.mpris-timer
+https://github.com/efogdev/mpris-timer
+
+*** install
+#+begin_src sh
+flatpak install flathub io.github.efogdev.mpris-timer
+#+end_src
+
+*** run
+#+begin_src sh
+flatpak run io.github.efogdev.mpris-timer
+#+end_src
+
+* Sound
+** play
+*** install
+#+begin_src sh
+sudo apt install sox
+#+end_src
+
+*** example
+#+begin_src sh
+play -n synth 0.2 sin 600 vol 0.5 ; play -n synth 0.2 sin 800 vol 0.5 ; play -n synth 0.2 sin 1000 vol 0.5
+#+end_src
+
+* Miscellaneous
+** neomacs
+- https://github.com/neomacs-project/neomacs/
+- https://www.reddit.com/r/emacs/comments/1h43ctg/comment/m00rgkq/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button

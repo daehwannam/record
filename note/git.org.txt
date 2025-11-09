@@ -132,7 +132,7 @@ git config user.email
 https://emacs.stackexchange.com/a/7657
 
 - C-x v ~
-- magit-find-file
+- vc-revision-other-window
 *** See previous revision with magit
 https://emacs.stackexchange.com/a/7683
 
@@ -160,6 +160,16 @@ git reset --hard $COMMIT_HASH
 ** git clone a specific tag
 git clone --depth 1 --branch <tag_name> <repo_url>
 ("--depth 1" is optional)
+
+** download a specific directory via git
+https://stackoverflow.com/a/52269934
+#+begin_src sh
+git clone -n --depth=1 --filter=tree:0 \
+    https://github.com/OWNER/REPOSITORY.git
+cd REPOSITORY
+git sparse-checkout set --no-cone /SUB_DIRECTORY
+git checkout
+#+end_src
 
 ** download a specific directory via svn
 https://stackoverflow.com/a/39317180/6710003

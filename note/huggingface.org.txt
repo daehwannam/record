@@ -177,6 +177,21 @@ tokenizer.tokenize("I like an apple and want to eat it.")
 # ['▁I', '▁like', '▁an', '▁apple', '▁and', '▁want', '▁to', '▁', 'eat', '▁it', '.']
 #+end_src
 
+** tokenizer.vocab_size vs. len(tokenizer)
+#+begin_src python
+from transformers import BartTokenizer
+
+tokenizer = BartTokenizer.from_pretrained("facebook/bart-base")
+assert len(tokenizer) == tokenizer.vocab_size
+initial_num_tokens = len(tokenizer)
+
+new_tokens = ['<special-1>', '<special-2>']
+added_tokens_num = tokenizer.add_tokens(new_tokens, special_tokens=True)
+
+assert len(tokenizer) == tokenizer.vocab_size + added_tokens_num
+#+end_src
+
+
 * PreTrainedModel
 ** resize_token_embeddings
 e.g.
