@@ -1,0 +1,14 @@
+
+* Install Mincromamba
+#+begin_src sh
+# Download and locate the Mincromamba binary as ~/bin/micromamba
+cd ~
+curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+
+# Initialize ~/.bashrc
+~/bin/micromamba shell init -s bash -r ~/program/micromamba
+source ~/.bashrc
+
+# Make the default environment
+micromamba create -n default python=3
+#+end_src

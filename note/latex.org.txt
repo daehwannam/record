@@ -160,6 +160,17 @@ the square brackets can be skipped.
 ** multiple .bib files
 https://tex.stackexchange.com/questions/84099/bibliographies-from-multiple-bib-files
 
+** \AtBeginDocument
+\AtBeginDocument puts commands at the beginning of the document,
+so the commands are executed just after \begin{document}.
+
+#+begin_src latex
+\AtBeginDocument{
+  \newcommand{\myNewCommand}{body}
+  \renewcommand{\myExistingCommand}{body}
+}
+#+end_src
+
 * Note
 ** setcitestyle
 https://tex.stackexchange.com/a/367402

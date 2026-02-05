@@ -3,7 +3,7 @@
 https://askubuntu.com/questions/670304/what-is-the-install-routine-for-common-lisp-slime-sbcl-quicklisp-on-ubuntu
 https://lispcookbook.github.io/cl-cookbook/getting-started.html
 
-** install sbcl
+** Install SBCL
 #+begin_src sh
 sudo apt-get install sbcl
 sudo apt install sbcl-source  # necessary for "slime-edit-definition" (M-.)
@@ -11,6 +11,66 @@ sudo apt install sbcl-source  # necessary for "slime-edit-definition" (M-.)
 or
 #+begin_src sh
 conda install -c conda-forge sbcl
+#+end_src
+
+** Install SBCL from binary
+https://www.sbcl.org/getting.html
+
+1. Download a SBCL binary from https://www.sbcl.org/platform-table.html
+2. Unarchive
+   #+begin_src sh
+   bzip2 -cd sbcl-2.5.10-x86-64-linux-binary.tar.bz2 | tar xvf -
+   #+end_src
+3. Move to the unarchived directory
+   #+begin_src sh
+   cd sbcl-2.5.10-x86-64-linux/
+   #+end_src
+4. Compile by following the INSTALL file
+   #+begin_src sh
+   sh install.sh
+   #+end_src
+
+** Install CLISP
+#+begin_src sh
+sudo apt install clisp
+#+end_src
+
+** Install Clozure Common Lisp (CCL)
+#+begin_src sh
+wget https://github.com/Clozure/ccl/releases/download/v1.13/ccl-1.13-linuxx86.tar.gz
+tar xvf ccl-1.13-linuxx86.tar.gz
+
+mkdir -p ~/program
+mv ccl ~/program
+
+mkdir -p ~/.local/bin
+ln -s ~/program/ccl/lx86cl64 ~/.local/bin/ccl
+
+#+end_src
+
+** Roswell
+https://roswell.github.io/Installation.html
+
+Install Roswell:
+#+begin_src sh
+curl -L https://github.com/roswell/roswell/releases/download/v19.08.10.101/roswell_19.08.10.101-1_amd64.deb --output roswell.deb
+sudo dpkg -i roswell.deb
+#+end_src
+
+Install SBCL
+#+begin_src sh
+ros install sbcl-bin/2.5.10
+ros use sbcl-bin
+ros list installed
+
+~/.roswell/impls/x86-64/linux/sbcl-bin/2.5.10/bin/sbcl --version
+ln -s ~/.roswell/impls/x86-64/linux/sbcl-bin/2.5.10/bin/sbcl ~/.local/bin/sbcl
+sbcl --version
+#+end_src
+
+Check the version in REPL
+#+begin_src lisp
+(lisp-implementation-version)
 #+end_src
 
 ** install quicklisp
@@ -23,6 +83,8 @@ curl -O https://beta.quicklisp.org/quicklisp.lisp
 curl -O https://beta.quicklisp.org/quicklisp.lisp.asc
 gpg --verify quicklisp.lisp.asc quicklisp.lisp
 sbcl --load quicklisp.lisp
+#+end_src
+
 #+begin_src lisp
 (quicklisp-quickstart:install)
 (ql:system-apropos "vecto")
@@ -30,6 +92,30 @@ sbcl --load quicklisp.lisp
 (ql:add-to-init-file)
 (quit)
 #+end_src
+
+*** Initializing quicklisp for a CL implementation
+The (ql:add-to-init-file) command adds initialization code to the configuration file,
+such as "~/.sbclrc" for SBCL and "~/.ccl-init.lisp" for CCL.
+
+The initialization code is
+
+#+begin_src lisp
+;;; The following lines added by ql:add-to-init-file:
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+#+end_src
+
+which is almost identical with
+
+#+begin_src lisp
+(load "~/quicklisp/setup.lisp")
+#+end_src
+
+After loading the setup file, you can use ASDF and quicklisp.
+e.g. (asdf:load-system "some-system")
 
 ** install slime by using quicklisp
 #+begin_src sh
@@ -234,14 +320,45 @@ https://lispcookbook.github.io/cl-cookbook/debugging.html#tracing-method-invocat
 (trace foo :methods t)
 #+end_src
 
-** Compile with different optimizations
+*** apropos
+This function searchs for interned symbols whose names contain the substring string.
+
+#+begin_src lisp :results drawer output
+(apropos "load-asd")
+#+end_src
+
+#+RESULTS:
+:results:
+ASDF/UPGRADE::LOAD-ASD
+ASDF/FIND-SYSTEM:LOAD-ASD (fbound)
+SWANK::LOAD-ASD (fbound)
+:end:
+
+*** Compile with different optimizations
 https://lispcookbook.github.io/cl-cookbook/debugging.html#compile-with-maximum-debugging-information
 - C-u C-c C-c: compile with maximum debugging information
   cf. optimization option
   #+begin_src lisp
-  (declaim (optimize (speed 0) (space 0) (debug 3)))
+  (declaim (optimize (speed 0) (safety 3) (space 0) (debug 3)))
   #+end_src
 - M-- C-c C-c: compile for speed
+
+*** declaim vs. declare
+- declaim is globally applied
+- declare is locally applied
+
+*** debugging demo
+- https://www.youtube.com/watch?v=jBBS4FeY7XM
+- https://vimeo.com/77004324
+  - https://stackoverflow.com/a/55948121
+  - "apropos"
+  - "slime-inspector"
+
+*** debugging tutorial
+- https://lispcookbook.github.io/cl-cookbook/debugging.html
+  - https://stackoverflow.com/a/35506398
+- http://malisper.me/2015/07/07/debugging-lisp-part-1-recompilation/
+  - https://stackoverflow.com/a/35506398
 
 * CFFI
 - tutorial: https://www.youtube.com/watch?v=lvHi5LyhxGk

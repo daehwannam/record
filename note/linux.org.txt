@@ -1140,3 +1140,14 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 :end:
 
 where 04e8:1f06 means <vendor-id>:<product-id>.
+
+** base64
+Encoding:
+#+begin_src sh
+base64 file.txt > file.txt.b64
+#+end_src
+
+Decoding:
+#+begin_src sh
+base64 --decode file.txt.b64 > file_decoded.txt
+#+end_src

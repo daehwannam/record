@@ -57,3 +57,28 @@ network manager with text-based UI
 ** bluetoothctl
 https://wiki.archlinux.org/title/bluetooth
 https://www.makeuseof.com/manage-bluetooth-linux-with-bluetoothctl/
+
+*** Command-line interface
+#+begin_src sh
+bluetoothctl              # Open a command-line interface
+
+power on                  # Enable Bluetooth
+scan on                   # Find devices
+scan off                  # Stop finding devices
+devices                   # List found devices
+connect <mac-address>     # Connect to a device, where <mac-address> is represented as AA:BB:CC:DD:EE:FF
+info <mac-address>        # Print the information of a device
+trust <mac-address>       # Enable automatic connection to a device
+disconnect                # Disconnect all connected devices
+disconnect <mac-address>  # Disconnect a device
+#+end_src
+
+*** Command directly from a terminal
+#+begin_src sh
+bluetooth <command>
+
+# e.g.
+# bluetooth devices
+# bluetooth info <mac-address>
+# bluetooth connect <mac-address>
+#+end_src

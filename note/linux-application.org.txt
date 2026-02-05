@@ -140,9 +140,12 @@ conda install -c conda-forge gtk3
       - 아치:
         - 한글: https://yadi.sk/d/5FOOnQCv_5ittw
         - 한글, 한셀, 한쇼 뷰어: https://yadi.sk/d/OUqRxYDh5LLlnQ
+    - https://gist.github.com/chaeya/bafc4e3c260ee6d8e2b8fb2f452e71a2
+      - Download link: https://mega.nz/file/71UFmBCI#-aVOcQcZOCp4GIxp6kL7HGjA7NdpDW8PFWkjT5ax3aY
   - install .deb file
     #+begin_src sh
-    sudo dpkg -i hoffice-hwp_11.20.0.989_amd64.deb
+    # sudo dpkg -i hoffice-hwp_11.20.0.989_amd64.deb
+    sudo dpkg -i hoffice_11.20.0.1520_amd64.deb
     #+end_src
 - change language to Korean
   https://hamonikr.org/Free_Board/88075
@@ -349,6 +352,16 @@ https://github.com/mpv-player/mpv/issues/4396#issuecomment-1252020397
 https://www.reddit.com/r/mpv/comments/jt0aho/comment/gc3pwfr/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 
 The default key is "l"
+
+*** Command line options example
+#+begin_src sh
+mpv \
+    --loop-file=inf \           # infinite loop
+    -osd-level 3 \              # Showing current progress
+    -start 00:00:00 \           # Start time
+    -end 00:04:18 \             # End time
+    'Some-File.mp4'
+#+end_src
 
 * Music player
 ** vlc
@@ -911,6 +924,22 @@ Error message
 (dropbox:22839): Gtk-CRITICAL **: 01:52:18.296: gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed
 #+end_example
 
+* MEGA
+** MEGAcmd
+#+begin_src sh
+# Log-in (first time only)
+# Format: mega-login {email@address.com} {password}
+( read -p "E-mail: " EMAIL; read -s -p "Password: " PASSWORD; echo; mega-login "$EMAIL" "$PASSWORD" )
+# the variables in the parentheses ( ... ) are removed after the commands are executed
+
+# Check the log-in information
+mega-whoami
+
+# Sync
+# format: mega-sync {/path/to/local/dir} {/path/to/cloud/dir}
+mega-sync /home/"$USER"/MEGA /MEGA
+#+end_src
+
 * Package management tool
 ** snap
 ** flatpak
@@ -979,7 +1008,38 @@ sudo apt install sox
 play -n synth 0.2 sin 600 vol 0.5 ; play -n synth 0.2 sin 800 vol 0.5 ; play -n synth 0.2 sin 1000 vol 0.5
 #+end_src
 
+** pactl
+It adjusts volumes of audio devices.
+
+- List audio devices:
+  #+begin_src sh :results drawer
+  pactl list sinks short
+  #+end_src
+
+  #+RESULTS:
+  :results:
+  0	alsa_output.pci-0000_00_1f.3.analog-stereo	module-alsa-card.c	s16le 2ch 44100Hz	SUSPENDED
+  6	bluez_sink.24_11_53_83_6C_0D.a2dp_sink	module-bluez5-device.c	s16le 2ch 44100Hz	RUNNING
+  :end:
+
+  where the second column means the name of device.
+
+- Set the volume of a device:
+  #+begin_src sh :results drawer
+  pactl set-sink-volume bluez_sink.24_11_53_83_6C_0D.a2dp_sink 15%
+  #+end_src
+
 * Miscellaneous
-** neomacs
-- https://github.com/neomacs-project/neomacs/
-- https://www.reddit.com/r/emacs/comments/1h43ctg/comment/m00rgkq/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+** Galaxy Buds Client
+https://github.com/timschneeb/GalaxyBudsClient?tab=readme-ov-file#flatpak
+
+Install
+#+begin_src sh
+flatpak install flathub me.timschneeberger.GalaxyBudsClient
+#+end_src
+
+
+Run:
+#+begin_src sh
+flatpak run me.timschneeberger.GalaxyBudsClient
+#+end_src

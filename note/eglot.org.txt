@@ -86,3 +86,11 @@ wget https://raw.githubusercontent.com/astoff/digestif/master/scripts/digestif -
 chmod +x ~/.local/bin/digestif
 ~/.local/bin/digestif
 #+end_src
+
+* javascript
+** TypeScript Language Server
+https://github.com/typescript-language-server/typescript-language-server
+
+#+begin_src sh
+npm install -g typescript-language-server typescript
+#+end_src

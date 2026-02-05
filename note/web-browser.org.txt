@@ -250,6 +250,12 @@ https://support.mozilla.org/en-US/questions/1174665
 ** Manually restoring previous session
 Menu (≡) -> History -> Restore previous session
 
+* Betterfox
+https://github.com/yokoffing/Betterfox
+
+Betterfox is a set of config files for Firefox.
+Betterfox makes Firefox faster.
+
 * EAF browser
 https://github.com/emacs-eaf/emacs-application-framework
 emacs-application-framework browser
@@ -435,3 +441,18 @@ rm -R  ~/.local/share/nyxt/history
 https://www.brow.sh/
 
 Browsh is a fully-modern text-based browser.
+
+* Surfingkeys
+https://github.com/brookhong/Surfingkeys
+https://github.com/philc/vimium/issues/2427#issuecomment-279568975
+
+Surfingkeys is a browser extension that can select text with a position hint.
+
+* neomacs
+- https://github.com/neomacs-project/neomacs/
+- https://www.reddit.com/r/emacs/comments/1h43ctg/comment/m00rgkq/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+
+* Vieb browser
+- https://vieb.dev/
+- https://github.com/Jelmerro/Vieb
+- https://www.reddit.com/r/planetemacs/comments/1ido8wr/comment/maannyg/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
